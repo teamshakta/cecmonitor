@@ -1,0 +1,15 @@
+version: '3'
+services:
+  cecmonitor:
+    image: cecmonitor
+    container_name: cecmonitor 
+    build:
+        context: ../projects/cecmonitor/
+        dockerfile: Dockerfile
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+      - TV_IP_ADDRESS=192.168.18.230
+      #- ADDITIONAL_ARGS=-v     #add additional command line arguments
+    restart: unless-stopped
