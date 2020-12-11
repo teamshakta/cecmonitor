@@ -1,2 +1,2 @@
 # cecmonitor
-Monitor CEC HDMI over the network to catch standby command and send power off to Android TV
+Monitor CEC HDMI over the network to catch standby command and send power off to Android TV thru adb shell
