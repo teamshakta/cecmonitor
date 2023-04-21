@@ -1,4 +1,6 @@
 FROM python:2.7.18-slim-buster
+
+#not sure if this is really needed to copy
 COPY requirements.txt .
 
 # install dependencies
