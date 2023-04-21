@@ -41,5 +41,6 @@ jobs:
       - name: Docker Compose restart
         shell: bash
         run: |
+            cd ${{ vars.DEPLOYMENT_FOLDER }}
             docker-compose down && docker-compose pull && docker-compose up -d
         
