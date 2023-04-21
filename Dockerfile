@@ -1,4 +1,4 @@
-FROM python:2.7.18-slim-buster
+FROM python:slim
 
 #not sure if this is really needed to copy
 COPY requirements.txt .
