@@ -1,0 +1,44 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3 
+      - name: Docker Build
+        shell: bash
+        run: |
+            docker build . -t ${{ vars.APPNAME }}
+      - name: Archive artifiacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-compose
+          path: docker-compose.yml
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: docker-compose 
+      - name: Update compose with secrets
+        shell: bash
+        run: |
+            sed -i 's|{TV_IP_ADDRESS}|${{ vars.TV_IP_ADDRESS }}|' ./docker-compose.yml
+      - name: Deploy compose file to deployment folder
+        shell: bash
+        run: |
+            cp ./docker-compose.yml ${{ vars.DEPLOYMENT_FOLDER }}
+      - name: Docker Compose restart
+        shell: bash
+        run: |
+            docker-compose down && docker-compose pull && docker-compose up -d
+        

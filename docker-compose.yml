@@ -1,7 +1,7 @@
 version: '3'
 services:
   cecmonitor:
-    image: cecmonitor
+    image: negativefusion/cecmonitor
     container_name: cecmonitor 
     build:
         context: ../projects/cecmonitor/
@@ -10,6 +10,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Los_Angeles
-      - TV_IP_ADDRESS=192.168.18.230
+      - TV_IP_ADDRESS={TV_IP_ADDRESS}
       #- ADDITIONAL_ARGS=-v     #add additional command line arguments
     restart: unless-stopped
+    volumes:
+      - ./conf:/root/.android
